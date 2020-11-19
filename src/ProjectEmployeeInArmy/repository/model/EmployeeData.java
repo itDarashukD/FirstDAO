@@ -1,22 +1,20 @@
-package ProjectEmployeeInArmy.Repository;
-
-import ProjectEmployeeInArmy.Entity.Entity;
+package ProjectEmployeeInArmy.repository.model;
 
 import java.util.Objects;
 
-public class Employee_Data extends Entity {
+public class EmployeeData extends Employee {
 
 
-    private Integer yearsold;
+    private Integer yearsOld;
     private String education;
     private String cityLive;
 
-    public Integer getYearsold() {
-        return yearsold;
+    public Integer getYearsOld() {
+        return yearsOld;
     }
 
-    public void setYearsold(Integer yearsold) {
-        this.yearsold = yearsold;
+    public void setYearsOld(Integer yearsOld) {
+        this.yearsOld = yearsOld;
     }
 
     public String getEducation() {
@@ -39,23 +37,23 @@ public class Employee_Data extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Employee_Data that = (Employee_Data) o;
+        EmployeeData that = (EmployeeData) o;
         return getId() == that.getId() &&
-                Objects.equals(yearsold, that.yearsold) &&
+                Objects.equals(yearsOld, that.yearsOld) &&
                 Objects.equals(education, that.education) &&
                 Objects.equals(cityLive, that.cityLive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), yearsold, education, cityLive);
+        return Objects.hash(getId(), yearsOld, education, cityLive);
     }
 
     @Override
     public String toString() {
         return "Employee_data{" +
                 "id=" + getId() +
-                ", yearsOld=" + yearsold +
+                ", yearsOld=" + yearsOld +
                 ", education='" + education + '\'' +
                 ", cityLive='" + cityLive + '\'' +
                 '}';

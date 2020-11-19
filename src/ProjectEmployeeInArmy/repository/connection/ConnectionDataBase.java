@@ -1,10 +1,13 @@
-package ProjectEmployeeInArmy.Connect;
+package ProjectEmployeeInArmy.repository.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
-public class Connect {
+public class ConnectionDataBase {
+    Logger logger = Logger.getLogger(ConnectionDataBase.class.getName());
+
     static String password = "dd1152138";
     static String userName = "postgres";
     static String connectionUrl = "jdbc:postgresql://localhost:5432/ProjectArmyEmployee";
@@ -12,17 +15,26 @@ public class Connect {
 
 
     public Connection getConnection() {
+
         Connection connection = null;
         try {
             Class.forName(driver);
-            System.out.println("Driver OK");
+            logger.info("Driver OK!");
+
             connection = DriverManager.getConnection(connectionUrl, userName, password);
-            System.out.println("Connection OK");
+            logger.info("Connection OK");
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            System.out.println("Connection ERROR");
+
+            logger.info("Connection ERROR!" + e);
+
         }
         return connection;
     }
 
+    public void closeConnection(Connection connection) throws SQLException {
+        if (connection != null) {
+            connection.close();
+
+        logger.info("Connection was closed");          }
+    }
 }

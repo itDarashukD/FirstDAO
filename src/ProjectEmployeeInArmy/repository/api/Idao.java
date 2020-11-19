@@ -1,9 +1,9 @@
-package ProjectEmployeeInArmy.DAO;
+package ProjectEmployeeInArmy.repository.api;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface Entity_DAO<T> {
+public interface Idao<T> {
     // добавление
     void add(T entity) throws SQLException;
 
