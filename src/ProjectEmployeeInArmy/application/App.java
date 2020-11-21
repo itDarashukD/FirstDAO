@@ -2,7 +2,7 @@ package ProjectEmployeeInArmy.application;
 
 import ProjectEmployeeInArmy.repository.EmployeeDataRepository;
 import ProjectEmployeeInArmy.repository.model.EmployeeData;
-
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -10,7 +10,9 @@ import java.util.logging.Logger;
 public class App {
     private static Logger logger = Logger.getLogger(App.class.getName());
 
-    public static void main(String[] args) throws SQLException {
+
+    public static void main(String[] args) throws SQLException, IOException {
+
         EmployeeDataRepository employeeDataRepository = new EmployeeDataRepository();
         //  EmployeeArmyRepository employeeArmyRepository = new EmployeeArmyRepository();
         // NewcomerRepository newcomerRepository = new NewcomerRepository();

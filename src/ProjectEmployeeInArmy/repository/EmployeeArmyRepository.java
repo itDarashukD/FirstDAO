@@ -4,6 +4,7 @@ import ProjectEmployeeInArmy.repository.connection.ConnectionDataBase;
 import ProjectEmployeeInArmy.repository.api.Idao;
 import ProjectEmployeeInArmy.repository.model.EmployeeArmy;
 
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<E
     String sqlGetById = "SELECT * FROM employee_army WHERE id=?";
     String sqlUpdate = "UPDATE employee_army SET positions=?,firstName=?,rank=?,lastName=?,year_in_army=? WHERE id=?";
     String sqlDelete = "DELETE FROM employee_army WHERE id=?";
+
 
     @Override
     public void add(EmployeeArmy employeeArmy) throws SQLException {
