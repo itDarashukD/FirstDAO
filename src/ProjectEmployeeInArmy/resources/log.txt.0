@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-11-23T12:22:27</date>
+  <millis>1606123347790</millis>
+  <sequence>0</sequence>
+  <logger>ProjectEmployeeInArmy.repository.connection.ConnectionDataBase</logger>
+  <level>INFO</level>
+  <class>ProjectEmployeeInArmy.repository.connection.ConnectionDataBase</class>
+  <method>getConnection</method>
+  <thread>1</thread>
+  <message>Driver OK!</message>
+</record>
+<record>
+  <date>2020-11-23T12:22:29</date>
+  <millis>1606123349222</millis>
+  <sequence>1</sequence>
+  <logger>ProjectEmployeeInArmy.repository.connection.ConnectionDataBase</logger>
+  <level>INFO</level>
+  <class>ProjectEmployeeInArmy.repository.connection.ConnectionDataBase</class>
+  <method>getConnection</method>
+  <thread>1</thread>
+  <message>Connection OK</message>
+</record>
+<record>
+  <date>2020-11-23T12:22:29</date>
+  <millis>1606123349252</millis>
+  <sequence>2</sequence>
+  <logger>ProjectEmployeeInArmy.repository.connection.ConnectionDataBase</logger>
+  <level>INFO</level>
+  <class>ProjectEmployeeInArmy.repository.connection.ConnectionDataBase</class>
+  <method>closeConnection</method>
+  <thread>1</thread>
+  <message>Connection was closed</message>
+</record>
+<record>
+  <date>2020-11-23T12:22:29</date>
+  <millis>1606123349252</millis>
+  <sequence>3</sequence>
+  <logger>ProjectEmployeeInArmy.application.App</logger>
+  <level>INFO</level>
+  <class>ProjectEmployeeInArmy.application.App</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Employee_data{id=2, yearsOld=33222, education='hight222', cityLive='Grodno222'}</message>
+</record>
+<record>
+  <date>2020-11-23T12:22:29</date>
+  <millis>1606123349253</millis>
+  <sequence>4</sequence>
+  <logger>ProjectEmployeeInArmy.application.App</logger>
+  <level>INFO</level>
+  <class>ProjectEmployeeInArmy.application.App</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Employee_data{id=1, yearsOld=33222, education='hight222', cityLive='Grodno222'}</message>
+</record>
+<record>
+  <date>2020-11-23T12:22:29</date>
+  <millis>1606123349253</millis>
+  <sequence>5</sequence>
+  <logger>ProjectEmployeeInArmy.application.App</logger>
+  <level>INFO</level>
+  <class>ProjectEmployeeInArmy.application.App</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Employee_data{id=3, yearsOld=85, education='lowlest', cityLive='Brest'}</message>
+</record>
+</log>
