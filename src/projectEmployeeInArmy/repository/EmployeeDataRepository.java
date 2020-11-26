@@ -1,15 +1,16 @@
-package ProjectEmployeeInArmy.repository;
+package projectEmployeeInArmy.repository;
 
-import ProjectEmployeeInArmy.repository.connection.ConnectionDataBase;
-import ProjectEmployeeInArmy.repository.api.Idao;
-import ProjectEmployeeInArmy.repository.model.EmployeeData;
+//import projectEmployeeInArmy.repository.connection.ConnectionDataBase;
+import projectEmployeeInArmy.repository.connection.DataBaseConnection;
+import projectEmployeeInArmy.repository.api.Idao;
+import projectEmployeeInArmy.repository.model.EmployeeData;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class EmployeeDataRepository extends ConnectionDataBase implements Idao<EmployeeData> {
+public class EmployeeDataRepository  implements Idao<EmployeeData> {
 
     String sqlAdd = "INSERT INTO employee_data (id, yearsold, education, citylive) VALUES(?, ?, ?, ?)";
     String sqlGetAll = "SELECT * FROM employee_data";
@@ -18,9 +19,9 @@ public class EmployeeDataRepository extends ConnectionDataBase implements Idao<E
     String sqlDelete = "DELETE FROM employee_data WHERE id=?";
 
     Logger logger = Logger.getLogger(EmployeeDataRepository.class.getName());
+    DataBaseConnection dataBaseConnection=new DataBaseConnection();
 
-    private Connection connection = getConnection();
-
+    public final Connection connection =  dataBaseConnection.getConnection();
 
     @Override
     public void add(EmployeeData employeeData) throws SQLException {
@@ -35,7 +36,7 @@ public class EmployeeDataRepository extends ConnectionDataBase implements Idao<E
             preparedStatement.setString(4, employeeData.getCityLive());
 
             preparedStatement.executeUpdate();
-            closeConnection(connection);
+          //  closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -67,7 +68,7 @@ public class EmployeeDataRepository extends ConnectionDataBase implements Idao<E
 
                 list.add(employeeData);
             }
-            closeConnection(connection);
+     //       closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -97,7 +98,7 @@ public class EmployeeDataRepository extends ConnectionDataBase implements Idao<E
                 employeeData.setCityLive(resultSet.getString("cityLive"));
 
             }
-            closeConnection(connection);
+       //     closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -125,7 +126,7 @@ public class EmployeeDataRepository extends ConnectionDataBase implements Idao<E
 
             logger.info("updating Complete  " + getAll());
 
-            closeConnection(connection);
+      //      closeConnection(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();

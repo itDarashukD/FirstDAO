@@ -1,4 +1,4 @@
-package ProjectEmployeeInArmy.repository.model;
+package projectEmployeeInArmy.repository.model;
 
 
 import java.util.Objects;

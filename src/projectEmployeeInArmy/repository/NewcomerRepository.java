@@ -1,15 +1,16 @@
-package ProjectEmployeeInArmy.repository;
+package projectEmployeeInArmy.repository;
 
-import ProjectEmployeeInArmy.repository.connection.ConnectionDataBase;
-import ProjectEmployeeInArmy.repository.api.Idao;
-import ProjectEmployeeInArmy.repository.model.EmployeeNewcomer;
+
+import projectEmployeeInArmy.repository.api.Idao;
+import projectEmployeeInArmy.repository.connection.DataBaseConnection;
+import projectEmployeeInArmy.repository.model.EmployeeNewcomer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class NewcomerRepository extends ConnectionDataBase implements Idao<EmployeeNewcomer> {
+public class NewcomerRepository implements Idao<EmployeeNewcomer> {
 
     String sqlAdd = "INSERT INTO newcomer ( id,first_name,last_name,years_old) VALUES (?,?,?,?)";
     String sqlGetAll = "SELECT * FROM newcomer";
@@ -20,7 +21,9 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
 
     private final Logger logger = Logger.getLogger(NewcomerRepository.class.getName());
 
-    private final Connection connection = getConnection();
+    DataBaseConnection dataBaseConnection = new DataBaseConnection();
+
+    public final Connection connection = dataBaseConnection.getConnection();
 
     @Override
     public void add(EmployeeNewcomer employeeNewcomer) throws SQLException {
@@ -33,7 +36,7 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
             preparedStatement.setLong(4, employeeNewcomer.getYears_old());
 
             preparedStatement.executeUpdate();
-            closeConnection(connection);
+            //  closeConnection(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +61,7 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
 
                 list.add(employeeNewcomer1);
             }
-            closeConnection(connection);
+            //   closeConnection(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,7 +73,6 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
     @Override
     public EmployeeNewcomer getById(long id) throws SQLException {
         EmployeeNewcomer newcomer = new EmployeeNewcomer();
-
 
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlGetById)) {
@@ -85,7 +87,7 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
                 newcomer.setLastName(resultSet.getString(3));
                 newcomer.setYears_old(resultSet.getInt(4));
             }
-            closeConnection(connection);
+            //    closeConnection(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,7 +112,7 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
 
             logger.info("updating complete  " + getAll());
 
-            closeConnection(connection);
+            //     closeConnection(connection);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,14 +123,14 @@ public class NewcomerRepository extends ConnectionDataBase implements Idao<Emplo
     @Override
     public void delete(long id) throws SQLException {
 
-           try (PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete)) {
 
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
 
             logger.info("Deleting Complete  " + getAll());
 
-            closeConnection(connection);
+            //    closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
 

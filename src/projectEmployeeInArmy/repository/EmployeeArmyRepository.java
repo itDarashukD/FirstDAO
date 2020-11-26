@@ -1,18 +1,19 @@
-package ProjectEmployeeInArmy.repository;
+package projectEmployeeInArmy.repository;
 
-import ProjectEmployeeInArmy.repository.connection.ConnectionDataBase;
-import ProjectEmployeeInArmy.repository.api.Idao;
-import ProjectEmployeeInArmy.repository.model.EmployeeArmy;
+import projectEmployeeInArmy.repository.api.Idao;
+import projectEmployeeInArmy.repository.connection.DataBaseConnection;
+import projectEmployeeInArmy.repository.model.EmployeeArmy;
 
-import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<EmployeeArmy> {
+public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
 
-    private Connection connection = getConnection();
+    DataBaseConnection dataBaseConnection=new DataBaseConnection();
+
+    public final Connection connection =  dataBaseConnection.getConnection();
 
     String sqlAdd = "INSERT INTO employee_army ( positions,firstname,id,rank,lastname,year_in_army) VALUES (?,?,?,?,?,?)";
     String sqlGetAll = "SELECT * FROM employee_army";
@@ -34,7 +35,7 @@ public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<E
             preparedStatement.setInt(6, employeeArmy.getYear_in_army());
 
             preparedStatement.executeUpdate();
-            closeConnection(connection);
+         //   closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -62,7 +63,7 @@ public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<E
 
                 list.add(employeeArmy);
             }
-            closeConnection(connection);
+         //   closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -90,7 +91,7 @@ public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<E
                 employeeArmy.setLastName(resultSet.getString(5));
                 employeeArmy.setYear_in_army(resultSet.getInt(6));
             }
-            closeConnection(connection);
+        //    closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -114,7 +115,7 @@ public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<E
 
             preparedStatement.executeUpdate();
             System.out.println("updating Complete  " + getAll());
-            closeConnection(connection);
+         //   closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -131,7 +132,7 @@ public class EmployeeArmyRepository extends ConnectionDataBase implements Idao<E
 
             System.out.println("Deleting Complete  " + getAll());
 
-            closeConnection(connection);
+            //   closeConnection(connection);
         } catch (SQLException e) {
             e.printStackTrace();
 

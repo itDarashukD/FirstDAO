@@ -1,4 +1,4 @@
-package ProjectEmployeeInArmy.repository.model;
+package projectEmployeeInArmy.repository.model;
 
 public abstract class Employee {
     private long id;

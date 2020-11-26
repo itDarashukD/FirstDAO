@@ -1,7 +1,9 @@
-package ProjectEmployeeInArmy.application;
+package projectEmployeeInArmy.application;
 
-import ProjectEmployeeInArmy.repository.EmployeeDataRepository;
-import ProjectEmployeeInArmy.repository.model.EmployeeData;
+import projectEmployeeInArmy.repository.EmployeeDataRepository;
+import projectEmployeeInArmy.repository.connection.DataBaseConnection;
+import projectEmployeeInArmy.repository.model.EmployeeData;
+
 import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -12,10 +14,12 @@ public class App {
 
 
     public static void main(String[] args) throws SQLException, IOException {
+        DataBaseConnection dataBaseConnection = new DataBaseConnection();
+        DataBaseConnection.getInstance();
 
         EmployeeDataRepository employeeDataRepository = new EmployeeDataRepository();
         //  EmployeeArmyRepository employeeArmyRepository = new EmployeeArmyRepository();
-        // NewcomerRepository newcomerRepository = new NewcomerRepository();
+        //  NewcomerRepository newcomerRepository = new NewcomerRepository();
 
         EmployeeData employeeData = new EmployeeData();
         employeeData.setCityLive("Brest");
@@ -25,7 +29,7 @@ public class App {
 
         //вызываем метод добавления записей передавая заполненный объект
 
-        //  employeeDataRepository.add(employee_data);
+        //  employeeDataRepository.add(employeeData);
 
         //вызываем метод чтения всего
 
@@ -36,7 +40,7 @@ public class App {
         }
         //вызываем метод чтения по id
 
-        //   logger.info(employeeDataRepository.getById(1L).toString());
+        logger.info(employeeDataRepository.getById(1L).toString());
 
         //вызываем метод обновления данных
 
@@ -45,6 +49,8 @@ public class App {
         //вызываем метод удаления данных
 
         //  employeeDataRepository.delete(2L);
+
+        DataBaseConnection.closeConnection(dataBaseConnection.getConnection());
 
     }
 }

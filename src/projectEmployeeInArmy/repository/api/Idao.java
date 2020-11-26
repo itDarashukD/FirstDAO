@@ -1,4 +1,4 @@
-package ProjectEmployeeInArmy.repository.api;
+package projectEmployeeInArmy.repository.api;
 
 import java.sql.SQLException;
 import java.util.List;
