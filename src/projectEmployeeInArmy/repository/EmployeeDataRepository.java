@@ -1,9 +1,10 @@
 package projectEmployeeInArmy.repository;
 
-//import projectEmployeeInArmy.repository.connection.ConnectionDataBase;
+
 import projectEmployeeInArmy.repository.connection.DataBaseConnection;
 import projectEmployeeInArmy.repository.api.Idao;
 import projectEmployeeInArmy.repository.model.EmployeeData;
+import projectEmployeeInArmy.resources.Constants;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,23 +13,21 @@ import java.util.logging.Logger;
 
 public class EmployeeDataRepository  implements Idao<EmployeeData> {
 
-    String sqlAdd = "INSERT INTO employee_data (id, yearsold, education, citylive) VALUES(?, ?, ?, ?)";
-    String sqlGetAll = "SELECT * FROM employee_data";
-    String sqlGetById = "SELECT * FROM employee_data WHERE id=?";
-    String sqlUpdate = "UPDATE employee_data SET  yearsOld=?, education=?, cityLive=? WHERE id=?";
-    String sqlDelete = "DELETE FROM employee_data WHERE id=?";
 
     Logger logger = Logger.getLogger(EmployeeDataRepository.class.getName());
-    DataBaseConnection dataBaseConnection=new DataBaseConnection();
 
-    public final Connection connection =  dataBaseConnection.getConnection();
+  //  private final DataBaseConnection dataBaseConnection = DataBaseConnection.getInstance();
+
+    private final Connection connection =  DataBaseConnection.getInstance().getConnection();
+
+    Constants constants = new Constants();
 
     @Override
     public void add(EmployeeData employeeData) throws SQLException {
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement(sqlAdd);
+            preparedStatement = connection.prepareStatement(constants.getSQL_ADD_EMPLOYEE_DATA());
 
             preparedStatement.setLong(1, employeeData.getId());
             preparedStatement.setLong(2, employeeData.getYearsOld());
@@ -36,7 +35,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
             preparedStatement.setString(4, employeeData.getCityLive());
 
             preparedStatement.executeUpdate();
-          //  closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -56,7 +55,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
         try {
             statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery(sqlGetAll);
+            ResultSet resultSet = statement.executeQuery(constants.getSQL_GET_ALL_EMPLOYEE_DATA());
 
             while (resultSet.next()) {
                 EmployeeData employeeData = new EmployeeData();
@@ -68,7 +67,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
 
                 list.add(employeeData);
             }
-     //       closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -86,7 +85,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
 
         EmployeeData employeeData = new EmployeeData();
         try {
-            preparedStatement = connection.prepareStatement(sqlGetById);
+            preparedStatement = connection.prepareStatement(constants.getSQL_GET_BY_ID_EMPLOYEE_DATA());
             preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -98,7 +97,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
                 employeeData.setCityLive(resultSet.getString("cityLive"));
 
             }
-       //     closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -116,7 +115,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
 
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(sqlUpdate);
+            preparedStatement = connection.prepareStatement(constants.getSQL_UPDATE_EMPLOYEE_DATA());
             preparedStatement.setInt(1, employeeData.getYearsOld());
             preparedStatement.setString(2, employeeData.getEducation());
             preparedStatement.setString(3, employeeData.getCityLive());
@@ -126,7 +125,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
 
             logger.info("updating Complete  " + getAll());
 
-      //      closeConnection(connection);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,7 +143,7 @@ public class EmployeeDataRepository  implements Idao<EmployeeData> {
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = connection.prepareStatement(sqlDelete);
+            preparedStatement = connection.prepareStatement(constants.getSQL_GET_BY_ID_EMPLOYEE_DATA());
 
             preparedStatement.setLong(1, id);
 

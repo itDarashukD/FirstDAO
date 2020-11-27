@@ -4,8 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
 public class Settings {
+
+    private static Settings instance;
+
+    private Settings() {
+    }
+    public static Settings getInstance(){
+        if (instance == null) {
+            instance=new Settings();
+        }
+        return instance;
+    }
+
     public String getPropertiesValue(String propertyName) {
 
         String propertyValue = "";

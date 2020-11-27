@@ -12,41 +12,44 @@ public class DataBaseConnection {
 
     private static DataBaseConnection instance;
     public Connection connection;
-    static String password = new Settings().getPropertiesValue("password");
-    static String userName = new Settings().getPropertiesValue("userName");
-    static String connectionUrl = new Settings().getPropertiesValue("connectionUrl");
-    static String driver = new Settings().getPropertiesValue("driver");
 
+   // private static Settings settings = Settings.getInstance();
 
-    public DataBaseConnection() {
-        try {
-            Class.forName(driver);
-            this.connection = DriverManager.getConnection(connectionUrl, userName, password);
+    private String password = Settings.getInstance().getPropertiesValue("password");
+    private String userName = Settings.getInstance().getPropertiesValue("userName");
+    private String connectionUrl = Settings.getInstance().getPropertiesValue("connectionUrl");
+    private String driver = Settings.getInstance().getPropertiesValue("driver");
 
-        } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
-        }
+    private DataBaseConnection() {
+        open();
     }
+
 
     public Connection getConnection() {
 
         return connection;
     }
 
-    public static DataBaseConnection getInstance() throws SQLException {
+    public static DataBaseConnection getInstance() {
         if (instance == null) {
-
             instance = new DataBaseConnection();
-
-        } else if (instance.getConnection().isClosed()) {
-            instance = new DataBaseConnection();
-
         }
-
         return instance;
     }
 
-    public static void closeConnection(Connection connection) throws SQLException {
+
+    public void open() {
+        try {
+            Class.forName(driver);
+            this.connection = DriverManager.getConnection(connectionUrl, userName, password);
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            logger.info("Database Connection Creation Failed : " + ex.getMessage());
+
+        }
+    }
+
+    public void close() throws SQLException {
         if (connection != null) {
             connection.close();
 
@@ -54,5 +57,4 @@ public class DataBaseConnection {
         }
     }
 }
-
 

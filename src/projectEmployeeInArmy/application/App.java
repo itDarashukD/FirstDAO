@@ -14,8 +14,7 @@ public class App {
 
 
     public static void main(String[] args) throws SQLException, IOException {
-        DataBaseConnection dataBaseConnection = new DataBaseConnection();
-        DataBaseConnection.getInstance();
+
 
         EmployeeDataRepository employeeDataRepository = new EmployeeDataRepository();
         //  EmployeeArmyRepository employeeArmyRepository = new EmployeeArmyRepository();
@@ -49,8 +48,7 @@ public class App {
         //вызываем метод удаления данных
 
         //  employeeDataRepository.delete(2L);
-
-        DataBaseConnection.closeConnection(dataBaseConnection.getConnection());
+        DataBaseConnection.getInstance().close();
 
     }
 }

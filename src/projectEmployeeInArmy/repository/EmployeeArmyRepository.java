@@ -3,29 +3,26 @@ package projectEmployeeInArmy.repository;
 import projectEmployeeInArmy.repository.api.Idao;
 import projectEmployeeInArmy.repository.connection.DataBaseConnection;
 import projectEmployeeInArmy.repository.model.EmployeeArmy;
+import projectEmployeeInArmy.resources.Constants;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
+public class EmployeeArmyRepository implements Idao<EmployeeArmy> {
 
-    DataBaseConnection dataBaseConnection=new DataBaseConnection();
+    private final DataBaseConnection dataBaseConnection = DataBaseConnection.getInstance();
 
-    public final Connection connection =  dataBaseConnection.getConnection();
+    private final Connection connection = dataBaseConnection.getConnection();
 
-    String sqlAdd = "INSERT INTO employee_army ( positions,firstname,id,rank,lastname,year_in_army) VALUES (?,?,?,?,?,?)";
-    String sqlGetAll = "SELECT * FROM employee_army";
-    String sqlGetById = "SELECT * FROM employee_army WHERE id=?";
-    String sqlUpdate = "UPDATE employee_army SET positions=?,firstName=?,rank=?,lastName=?,year_in_army=? WHERE id=?";
-    String sqlDelete = "DELETE FROM employee_army WHERE id=?";
+    Constants constants = new Constants();
 
 
     @Override
-    public void add(EmployeeArmy employeeArmy) throws SQLException {
+    public void add(EmployeeArmy employeeArmy) {
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlAdd)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(constants.getSQL_ADD_EMPLOYEE_ARMY())) {
 
             preparedStatement.setString(1, employeeArmy.getPositions());
             preparedStatement.setString(2, employeeArmy.getFirstName());
@@ -35,7 +32,7 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
             preparedStatement.setInt(6, employeeArmy.getYear_in_army());
 
             preparedStatement.executeUpdate();
-         //   closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -43,14 +40,13 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
     }
 
     @Override
-    public List<EmployeeArmy> getAll() throws SQLException {
+    public List<EmployeeArmy> getAll() {
         List<EmployeeArmy> list = new ArrayList<>();
-
 
 
         try (Statement statement = connection.createStatement()) {
 
-            ResultSet resultSet = statement.executeQuery(sqlGetAll);
+            ResultSet resultSet = statement.executeQuery(constants.getSQL_GET_ALL_EMPLOYEE_ARMY());
 
             while (resultSet.next()) {
                 EmployeeArmy employeeArmy = new EmployeeArmy();
@@ -63,7 +59,7 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
 
                 list.add(employeeArmy);
             }
-         //   closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -74,11 +70,11 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
 
 
     @Override
-    public EmployeeArmy getById(long id) throws SQLException {
+    public EmployeeArmy getById(long id) {
 
         EmployeeArmy employeeArmy = new EmployeeArmy();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlGetById)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(constants.getSQL_GET_BY_ID_EMPLOYEE_ARMY())) {
             preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -91,7 +87,7 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
                 employeeArmy.setLastName(resultSet.getString(5));
                 employeeArmy.setYear_in_army(resultSet.getInt(6));
             }
-        //    closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -102,9 +98,9 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
     }
 
     @Override
-    public void update(EmployeeArmy employeeArmy) throws SQLException {
+    public void update(EmployeeArmy employeeArmy) {
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(constants.getSQL_UPDATE_EMPLOYEE_ARMY())) {
 
             preparedStatement.setString(1, employeeArmy.getPositions());
             preparedStatement.setString(2, employeeArmy.getFirstName());
@@ -115,7 +111,7 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
 
             preparedStatement.executeUpdate();
             System.out.println("updating Complete  " + getAll());
-         //   closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -123,16 +119,16 @@ public class EmployeeArmyRepository  implements Idao<EmployeeArmy> {
     }
 
     @Override
-    public void delete(long id) throws SQLException {
+    public void delete(long id) {
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(constants.getSQL_DELETE_EMPLOYEE_ARMY())) {
 
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
 
             System.out.println("Deleting Complete  " + getAll());
 
-            //   closeConnection(connection);
+
         } catch (SQLException e) {
             e.printStackTrace();
 
